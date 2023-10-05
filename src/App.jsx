@@ -1,18 +1,24 @@
 import "./App.css";
 import { Provider } from "react-redux";
 import store from "./redux/store";
-import Register from "./components/auth/Register";
-// import CounterApp from "./components/CounterApp";
-// import AllPosts from "./components/posts/AllPosts";
-// import AllProducts from "./components/products/AllProducts";
-
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Navbar from "./components/navbar/Navbar";
+import CreateBook from "./components/booksComp/CreateBook";
+import { Toaster } from "react-hot-toast";
+import AllBooks from "./components/booksComp/AllBooks";
 function App() {
   return (
-    <Provider store={store}>
-      {/* <CounterApp /> */}
-      {/* <AllPosts /> */}
-      <Register />
-    </Provider>
+    <BrowserRouter>
+      <Provider store={store}>
+        <Navbar />
+        <Toaster position="top-center" reverseOrder={false} />
+        <Routes>
+          <Route path="/" element={"home"} />
+          <Route path="/create-book" element={<CreateBook />} />
+          <Route path="/all-books" element={<AllBooks />} />
+        </Routes>
+      </Provider>
+    </BrowserRouter>
   );
 }
 
