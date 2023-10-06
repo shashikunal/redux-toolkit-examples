@@ -1,12 +1,12 @@
 import { Fragment, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteBooksApi, getBooksApi } from "../../redux/books/bookSlice";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const AllBooks = () => {
   let dispatch = useDispatch();
-  let navigate = useNavigate();
-  let { data, status, error } = useSelector(state => state.book);
+
+  let { data, status } = useSelector(state => state.book);
 
   useEffect(() => {
     dispatch(getBooksApi());
@@ -38,6 +38,9 @@ const AllBooks = () => {
                           <button onClick={() => deleteBook(val.id)}>
                             delete
                           </button>
+                          <Link to={`/update/${val.id}`} className="nav-link">
+                            update
+                          </Link>
                         </span>
                       </li>
                     </Fragment>

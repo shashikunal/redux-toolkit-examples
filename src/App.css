@@ -153,3 +153,21 @@
   border: 1px solid red;
   color: red;
 }
+
+.container .nav-link{
+  background: #999999;
+  color: #fff;
+  padding: 5px 6px;
+  border: none;
+  cursor: pointer;
+  border-radius: 2px;
+  margin: 0px 10px;
+  text-decoration: none;
+  font-size: 13px;
+}
+
+.container .nav-link:hover {
+  background: #fff;
+  border: 1px solid deeppink;
+  color: deeppink;
+}

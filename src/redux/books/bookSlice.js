@@ -37,6 +37,32 @@ export const deleteBooksApi = createAsyncThunk("deleteBooksApi", async id => {
   }
 });
 
+//singleBook
+export const singleBookApi = createAsyncThunk("singleBookApi", async id => {
+  try {
+    let { data } = await axios.get(`http://localhost:5000/books/${id}`);
+    return data;
+  } catch (err) {
+    return err.message;
+  }
+});
+
+//updateBook
+export const updateBookApi = createAsyncThunk(
+  "updateBookApi",
+  async payload => {
+    try {
+      let { data } = await axios.put(
+        `http://localhost:5000/books/${payload.id}`,
+        payload
+      );
+      return data;
+    } catch (err) {
+      return err.message;
+    }
+  }
+);
+
 export const bookSlice = createSlice({
   name: "books",
   initialState,
@@ -83,6 +109,32 @@ export const bookSlice = createSlice({
         }
       })
       .addCase(deleteBooksApi.rejected, (state, action) => {
+        state.status = false;
+        state.error = action.error.message;
+      });
+    // single fetch book
+    builder
+      .addCase(singleBookApi.pending, state => {
+        state.status = true;
+      })
+      .addCase(singleBookApi.fulfilled, (state, action) => {
+        state.status = false;
+        state.data = action.payload;
+      })
+      .addCase(singleBookApi.rejected, (state, action) => {
+        state.status = false;
+        state.error = action.error.message;
+      });
+    //update book
+    builder
+      .addCase(updateBookApi.pending, state => {
+        state.status = true;
+      })
+      .addCase(updateBookApi.fulfilled, (state, action) => {
+        state.status = false;
+        state.data.push(action.payload);
+      })
+      .addCase(updateBookApi.rejected, (state, action) => {
         state.status = false;
         state.error = action.error.message;
       });
